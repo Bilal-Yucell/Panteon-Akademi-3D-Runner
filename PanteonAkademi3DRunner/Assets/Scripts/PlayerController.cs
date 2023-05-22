@@ -17,5 +17,10 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + runningSpeed * Time.deltaTime);
         transform.position = newPosition;
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) 
+        {
+            Debug.Log(Input.GetTouch(0).deltaPosition.x);
+        }
     }
 }
