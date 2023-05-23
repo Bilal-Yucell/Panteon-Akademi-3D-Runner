@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CollectCoin : MonoBehaviour
 {
     public int score;
     public TextMeshProUGUI coinText;
     public PlayerController playerController;
+    public int maxSxore;
+    public Animator PlayerAnim;
+    public GameObject Player;
+    public GameObject EndPanel;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,14 +25,34 @@ public class CollectCoin : MonoBehaviour
         {
             Debug.Log("Congrats!");
             playerController.runningSpeed = 0;
+            transform.Rotate(transform.rotation.x, 180, transform.rotation.z, Space.Self);
+            EndPanel.SetActive(true);
+
+            if (score >= maxSxore)
+            {
+                // Debug.Log("You Win!");
+                PlayerAnim.SetBool("Win", true);
+            }
+
+            else
+            {
+                // Debug.Log("You Lose!");
+                PlayerAnim.SetBool("Lose", true);
+            }
         }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Collision"))
+        if (collision.gameObject.CompareTag("Collision"))
         {
             Debug.Log("Touched Obstacle!");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
