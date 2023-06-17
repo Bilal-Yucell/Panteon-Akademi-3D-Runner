@@ -14,6 +14,11 @@ public class CollectCoin : MonoBehaviour
     public GameObject Player;
     public GameObject EndPanel;
 
+    private void Start()
+    {
+        PlayerAnim = Player.GetComponentInChildren<Animator>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Coin"))
@@ -31,13 +36,13 @@ public class CollectCoin : MonoBehaviour
             if (score >= maxSxore)
             {
                 // Debug.Log("You Win!");
-                PlayerAnim.SetBool("Win", true);
+                PlayerAnim.SetBool("win", true);
             }
 
             else
             {
                 // Debug.Log("You Lose!");
-                PlayerAnim.SetBool("Lose", true);
+                PlayerAnim.SetBool("lose", true);
             }
         }
     }
